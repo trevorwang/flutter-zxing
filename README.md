@@ -1,10 +1,3 @@
 # fzxing
 
-A new flutter plugin project.
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
-
-For help on editing plugin code, view the [documentation](https://flutter.io/platform-plugins/#edit-code).
+A Zxing flutter plugin project to wrap [zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded) for Android and [LBXScan](https://github.com/MxABC/LBXScan) for iOS

@@ -1,5 +1,5 @@
 name: fzxing
-description: A new flutter plugin project.
+description: A Zxing plugin to wrap zxing-android-embedded for Android and LBXScan for iOS
 version: 0.0.3
 author: Trevor Wang<trevor.wang@qq.com>
 homepage: https://github.com/trevorwang/flutter-zxing
