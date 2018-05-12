@@ -7,10 +7,14 @@
 
 import UIKit
 import LBXScan
+import Foundation
+import AVFoundation
 
 class CaptureViewController: LBXScanViewController  {
     var scanResult: ((_ result:String) -> Void)?
     var isBeep = false
+    var isContinuous = false
+    var player = AVAudioPlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +37,23 @@ class CaptureViewController: LBXScanViewController  {
     @objc func close() {
        self.dismiss(animated: true)
     }
+    
+    func playSound() {
+        let frameworkBundle = Bundle(for: CaptureViewController.self)
+        if let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("fzxing.bundle") {
+            let beepFile = Bundle(url: bundleURL)?.url(forResource: "beep", withExtension: "mp3")
+            do {
+                player = try AVAudioPlayer(contentsOf: beepFile! )
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                player.volume = 0.5
+                player.prepareToPlay()
+                player.play()
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension CaptureViewController: LBXScanViewControllerDelegate {
@@ -43,12 +64,17 @@ extension CaptureViewController: LBXScanViewControllerDelegate {
             }
         }
         let value = array.first?.strScanned ?? ""
-        self.scanResult?(value)
-        #if DEBUG
-        if (isBeep) {
-            AudioServicesPlaySystemSound(1005)
+        
+        if(isBeep) {
+        playSound()
+
         }
-        #endif
-        self.dismiss(animated: true)
+        
+        self.scanResult?(value)
+        if (isContinuous) {
+            self.reStartDevice()
+        } else{
+            self.dismiss(animated: true)
+        }
     }
 }

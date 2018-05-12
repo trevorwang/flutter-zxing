@@ -27,7 +27,9 @@ class _MyAppState extends State<MyApp> {
               new RaisedButton(
                 onPressed: () {
                   try {
-                    Fzxing.scan(isBeep: false).then((barcodeResult) {
+                    Fzxing
+                        .scan(isBeep: true, isContinuous: true)
+                        .then((barcodeResult) {
                       print("flutter size:" + barcodeResult?.toString());
                       setState(() {
                         _barcode = barcodeResult;

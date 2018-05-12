@@ -2,17 +2,14 @@ import Flutter
 import UIKit
 import LBXScan
 
-let fzxing = "fzxing"
-
 public class SwiftFzxingPlugin: NSObject, FlutterPlugin {
-    let keyScan = "scan"
     
     private static var _registrar : FlutterPluginRegistrar!
     private var _rootViewController: UIViewController?
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         _registrar = registrar
-        let channel = FlutterMethodChannel(name: fzxing, binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(name: "fzxing", binaryMessenger: registrar.messenger())
         let instance = SwiftFzxingPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
@@ -20,7 +17,7 @@ public class SwiftFzxingPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         self._rootViewController = UIApplication.shared.keyWindow?.rootViewController
         switch call.method {
-        case keyScan:
+        case "scan":
             handleScan(call: call, result: result)
         default:
             result(FlutterMethodNotImplemented)
@@ -30,9 +27,11 @@ public class SwiftFzxingPlugin: NSObject, FlutterPlugin {
     private func handleScan(call: FlutterMethodCall, result: @escaping FlutterResult) {
         let map = call.arguments as? Dictionary<String, Any>
         let isBeep = map?["isBeep"] as? Bool ?? false
+        let isContinuous = map?["isContinuous"] as? Bool ?? false
         
         let vc = CaptureViewController()
         vc.isBeep = isBeep
+        vc.isContinuous = isContinuous
         vc.scanResult =  {
             result($0)
         }

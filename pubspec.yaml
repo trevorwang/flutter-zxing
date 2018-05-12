@@ -1,6 +1,6 @@
 name: fzxing
 description: A Zxing plugin to wrap zxing-android-embedded for Android and LBXScan for iOS
-version: 0.0.3
+version: 0.0.4
 author: Trevor Wang<trevor.wang@qq.com>
 homepage: https://github.com/trevorwang/flutter-zxing
 
