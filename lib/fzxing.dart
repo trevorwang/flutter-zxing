@@ -8,14 +8,14 @@ class Fzxing {
   static Future<List<String>> scan({
     bool isBeep = true,
     bool isContinuous = false,
-    int scanInterval = 1000,
+    int continuousInterval = 1000,
   }) async {
     final List barcodes = await _channel.invokeMethod(
         'scan',
         Map()
           ..['isBeep'] = isBeep
           ..['isContinuous'] = isContinuous
-          ..['continuousInterval'] = scanInterval);
+          ..['continuousInterval'] = continuousInterval);
     return barcodes.map((it) => it as String).toList();
   }
 }

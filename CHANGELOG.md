@@ -1,3 +1,9 @@
+## [0.1.0]
+
+* remove EventBus dependency from Android
+* Add `continuousInterval` for both Android and iOS, which works only when `isContinuous = true`
+* `scan` method will return `List<String>` instead of `String`
+
 ## [0.0.5+1]
 
 * Update CHANGELOG, LICENSE and README

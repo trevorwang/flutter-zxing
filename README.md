@@ -7,4 +7,9 @@ A Zxing flutter plugin project to wrap [zxing-android-embedded](https://github.c
 ```dart
     bool isBeep = true,
     bool isContinuous = false,
+    int continuousInterval = 1000, // only works when isContinuous is true
 ```
+
+## Destructive change
+
+`scan` will return a `List<String>` instead of `String`
