@@ -5,16 +5,17 @@ import 'package:flutter/services.dart';
 class Fzxing {
   static const MethodChannel _channel = const MethodChannel('fzxing');
 
-  static Future<String> scan({
+  static Future<List<String>> scan({
     bool isBeep = true,
     bool isContinuous = false,
+    int scanInterval = 1000,
   }) async {
-    final String barcode = await _channel.invokeMethod(
-      'scan',
-      Map()
-        ..['isBeep'] = isBeep
-        ..['isContinuous'] = isContinuous,
-    );
-    return barcode;
+    final List barcodes = await _channel.invokeMethod(
+        'scan',
+        Map()
+          ..['isBeep'] = isBeep
+          ..['isContinuous'] = isContinuous
+          ..['continuousInterval'] = scanInterval);
+    return barcodes.map((it) => it as String).toList();
   }
 }
