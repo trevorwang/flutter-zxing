@@ -11,11 +11,14 @@ import Foundation
 import AVFoundation
 
 class CaptureViewController: LBXScanViewController  {
-    var scanResult: ((_ result:String) -> Void)?
+    var scanResult: ((_ result:[String]) -> Void)?
     var isBeep = false
     var isContinuous = false
+    var continuousInterval = 1000
     var player = AVAudioPlayer()
-    
+    var resultList = Array<String>()
+    var lastTime = Date().timeIntervalSince1970
+    var lastBarCode = "INVALID"
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = nil
@@ -25,6 +28,7 @@ class CaptureViewController: LBXScanViewController  {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action:
             #selector(CaptureViewController.close))
+        resultList.removeAll()
     }
 
     private func setScanStyle() {
@@ -35,7 +39,8 @@ class CaptureViewController: LBXScanViewController  {
     }
     
     @objc func close() {
-       self.dismiss(animated: true)
+        self.dismiss(animated: true)
+        self.scanResult?(resultList)
     }
     
     func playSound() {
@@ -58,23 +63,26 @@ class CaptureViewController: LBXScanViewController  {
 
 extension CaptureViewController: LBXScanViewControllerDelegate {
     public func scanResult(with array: [LBXScanResult]!) {
-        for result in array {
-            if let str = result.strScanned {
-                print(str)
-            }
-        }
         let value = array.first?.strScanned ?? ""
-        
-        if(isBeep) {
-        playSound()
-
-        }
-        
-        self.scanResult?(value)
-        if (isContinuous) {
-            self.reStartDevice()
-        } else{
-            self.dismiss(animated: true)
+        let now = Date().timeIntervalSince1970
+        if( now - lastTime < Double(continuousInterval) / 1000 && lastBarCode == value) {
+            if (isContinuous) {
+                self.reStartDevice()
+            }
+        } else {
+            if(isBeep) {
+                playSound()
+            }
+            resultList.append(value)
+            lastBarCode = value
+            lastTime = now
+            print(resultList)
+            if (isContinuous) {
+                self.reStartDevice()
+            } else{
+                self.dismiss(animated: true)
+                self.scanResult?(resultList)
+            }
         }
     }
 }

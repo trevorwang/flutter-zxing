@@ -28,11 +28,14 @@ public class SwiftFzxingPlugin: NSObject, FlutterPlugin {
         let map = call.arguments as? Dictionary<String, Any>
         let isBeep = map?["isBeep"] as? Bool ?? false
         let isContinuous = map?["isContinuous"] as? Bool ?? false
+        let continuousInterval = map?["continuousInterval"] as? Int ?? 1000
         
         let vc = CaptureViewController()
         vc.isBeep = isBeep
         vc.isContinuous = isContinuous
+        vc.continuousInterval = continuousInterval
         vc.scanResult =  {
+            print($0)
             result($0)
         }
         
