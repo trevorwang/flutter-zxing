@@ -1,12 +1,12 @@
 name: fzxing
 description: A Zxing plugin to wrap zxing-android-embedded for Android and LBXScan for iOS
-version: '0.1.0+1'
+version: '0.2.0'
 author: Trevor Wang<trevor.wang@qq.com>
 homepage: https://github.com/trevorwang/flutter-zxing
 
 environment:
-  sdk: ">=1.23.0 <2.0.0"
-  flutter: '>0.3.1'
+  sdk: '>=2.0.0 <3.0.0'
+  flutter: '>1.0.0'
 
 dependencies:
   flutter:
