@@ -6,7 +6,7 @@ homepage: https://github.com/trevorwang/flutter-zxing
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
-  flutter: '>1.0.0'
+  flutter: '>=  1.0.0'
 
 dependencies:
   flutter:

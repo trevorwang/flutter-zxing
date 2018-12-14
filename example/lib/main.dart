@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _barcode = 'Unknown';
+  List<String> _barcode;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
                       });
                     });
                   } on PlatformException {
-                    _barcode = 'Failed to get barcode.';
+                    _barcode.add('Failed to get barcode.');
                   }
                 },
                 child: Text('scan'),
