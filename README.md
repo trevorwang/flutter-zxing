@@ -1,4 +1,4 @@
-## This project is deprecated, please use [qr_code_scanner](https://github.com/juliuscanute/qr_code_scanner) instead.
+## [Deprecated] This project is deprecated, please use [qr_code_scanner](https://github.com/juliuscanute/qr_code_scanner) instead.
 
 
 # fzxing
